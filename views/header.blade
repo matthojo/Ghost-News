@@ -1,0 +1,31 @@
+header.header.grid
+	h1.logo
+		a(href='/') The Grid
+	a#mobile-menu.mobile.mobile-button.menu(href='#menu')
+		i.icon-menu
+		span Menu
+	a.mobile.mobile-button.submit(href='/submit')
+		i.icon-plus
+		span Submit
+	ul.nav.site-nav.desktop
+		li
+			a(href='/') Top
+		li
+			a(href='/new') New
+		li
+			a(href='/ask') Ask
+		li
+			a(href='/show') Show
+		li
+			a(href='/jobs') Jobs
+	ul.nav.user-nav.desktop
+		- if(true || loggedIn)
+			li
+				a(href='/account') Account
+		- else
+			li
+				a(href='/signup') Sign Up
+			li
+				a(href='/login') Log In
+			li
+				a.submit.button(href='/submit') Submit

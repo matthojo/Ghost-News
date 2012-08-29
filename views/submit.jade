@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  if error
+    p.error=error
+  .grid
+    form.form-horizontal(method='POST')
+      .control-group
+        label.control-label(for='headline') Headline
+        .controls
+          input(type='text', id='headline', name='headline', autofocus='autofocus')
+      .control-group
+        label.control-label(for='url') URL
+        .controls
+          input(type='text', id='url', name='url')
+      .control-group
+        label.control-label(for='body') Body
+        .controls
+          textarea.input-xlarge(id='body', name='body', rows='3')
+
+      .form-actions
+        input.btn(type='submit', value='Submit')

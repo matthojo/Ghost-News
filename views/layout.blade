@@ -1,0 +1,74 @@
+!!! 5
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title The Grid
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    block styles
+      !=css('screen.css')
+    block scripts_header
+  body
+    h1 Now using Blade
+    #menu.hidden
+      ul
+        li
+          a(href='/') Top
+        li
+          a(href='/') New
+        li
+          a(href='/') Ask
+        li
+          a(href='/') Show
+        li
+          a(href='/') Jobs  
+        if loggedIn  
+          li
+            a(href='/') Account
+        else
+          li
+            a(href='/') Sign Up    
+          li
+            a(href='/') Log In
+    header.header.grid
+      h1.logo
+        a(href='/') The Grid
+      a#mobile-menu.mobile.mobile-button.menu(href='#menu')
+        i.icon-menu
+        span Menu
+      a.mobile.mobile-button.submit(href='/submit')
+        i.icon-plus
+        span Submit
+      ul.nav.site-nav.desktop
+       if url === '/'
+         li.selected: a(href='/') Top
+       else
+         li: a(href='/') Top
+       if url === '/new'
+         li.selected: a(href='/new') New
+       else
+         li: a(href='/new') New
+       if url === '/ask'
+         li.selected: a(href='/ask') Ask
+       else
+         li: a(href='/ask') Ask
+       if url === '/show'
+         li.selected: a(href='/show') Show
+       else
+         li: a(href='/show') Show
+       if url === '/jobs'
+         li.selected: a(href='/jobs') Jobs
+       else
+         li: a(href='/jobs') Jobs
+      ul.nav.user-nav.desktop
+       if loggedIn
+         li: a(href='/account') Account
+       else
+         li: a(href='/signup') Sign Up
+         li: a(href='/login') Log In
+       li: a.submit.button(href='/submit') Submit
+    block content
+    .overlay.hidden
+    block scripts_footer
+      !=js('main')

@@ -1,0 +1,10 @@
+extends layout
+include mixins/post
+
+block content
+  .posts.grid
+    if posts && posts.length
+      for post in posts
+        +post(post)
+    else
+      p No posts yet.

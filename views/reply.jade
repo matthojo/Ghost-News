@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  .row.post
+    p.span9
+      a.headline(href=post.url)= post.headline
+      span.byline By <a href="#">#{post.submitter}</a> <span class='ago'>#{moment(post.submitted).fromNow()}</span>
+    .share.span1 share
+    .discuss.span1: a(href='/posts/#{post._id}') <span class="num">#{post.comments}</span> comments
+    .upvote.span1 <span class="num">#{post.votes}</span> upvotes
+  .row
+    .span12
+      blockquote.comment
+        p= comment.comment
+        span.byline By <a href="#">#{comment.submitter}</a> <span class='ago'>#{moment(comment.submitted).fromNow()}</span>
+  .row
+    .span12
+      form(action='/posts/#{post._id}/comments', method='POST')
+        input(type='hidden', name='parentCommentId', value='#{comment._id}')
+        div
+          textarea(name='comment', rows='3', autofocus='autofocus')
+        div
+          input.btn(type='submit', value='Reply')

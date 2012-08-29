@@ -1,0 +1,5 @@
+template(name="posts")
+	-if(show)
+		.posts.grid
+			- for(var i in posts)
+				include 'post'

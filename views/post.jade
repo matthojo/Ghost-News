@@ -1,0 +1,44 @@
+extends layout
+include mixins/post
+
+
+mixin comment(comment, post)
+  li.comment
+    .comment-content
+      .comment-actions
+        a.upvote
+          i.icon-up
+          span upvote
+        a.downvote
+          i.icon-down 
+          span downvote
+      .comment-meta
+        a.comment-username #{comment.item.submitter}
+        span.comment-time #{moment(comment.item.submitted).fromNow()}
+        a.comment-permalink.icon-link link
+      .comment-text #{comment.item.comment}  
+      if loggedIn
+        a.comment-reply(href='/posts/#{post._id}/comments/#{comment.item._id}') Reply
+    if comment.children.length    
+      ul.comment-children
+        for childComment in comment.children
+          mixin comment(childComment, post)
+
+block content
+  .grid
+    mixin post(post)
+    if post.body && post.body.length
+      .post-message #{post.body}
+    if loggedIn
+      .comment-new
+        form(action='/posts/#{post._id}/comments', method='POST')
+          .comment-field
+            textarea(name='comment', rows='3', autofocus='autofocus')
+          .comment-submit
+            input.btn(type='submit', value='Add Comment')
+    if !comments.length
+      p No comments yet.
+    else
+      ul.comments
+        for comment in comments
+          mixin comment(comment, post)

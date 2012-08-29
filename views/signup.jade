@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  .grid-small.dialog
+    if error
+      p.error=error
+    form.form-horizontal(method='POST')
+      h2 Sign Up
+      .control-group
+        label.control-label(for='username') Username
+        .controls
+          input(type='text', id='username', name='username', autofocus='autofocus')
+      .control-group
+        label.control-label(for='password') Password
+        .controls
+          input(type='password', id='password', name='password')
+      .control-group
+        label.control-label(for='email') Email
+        .controls
+          input(type='text', id='email', name='email')
+      .form-actions
+        input.btn(type='submit', value='Register')
+    p.footer-notice Already have an account? <a href="/login">Log in here.</a>

@@ -1,0 +1,44 @@
+mixin post(post)
+	.post
+		ul.post-actions
+			li.post-share.desktop
+				a.share-link(href="#")
+					i.icon-share
+					span.action Share
+				.share-options.hidden
+					.share-replace(data-url=post.url, data-text=post.headline)	
+			li.post-discuss
+				a.discuss-link(href='/posts/#{post._id}')
+					i.icon-comment
+					span.count #{post.comments}
+					span.action Discuss
+			li.post-more.mobile
+				a.more-link
+					i.icon-share
+					span.action Text    
+		.post-content
+			span.post-rank 1
+			.post-upvote
+				if loggedIn
+					a.upvote-link(href='/posts/#{post._id}/upvote', class=(post.voted ? 'voted' : 'not-voted')) 
+						i.icon-up
+						i.icon-check
+						span Upvote
+				else
+					a.upvote-link.not-voted(href='/login')
+						i.icon-up
+						span Upvote
+			.post-info
+				h3.post-heading
+					a.post-title(href=post.url) #{post.headline} 
+					span.post-domain news.ycombinator.com
+				p.post-meta
+					span.points 
+						| #{post.votes} 
+						span.unit points 
+					| by 
+					a.post-author(href='#') #{post.submitter} 
+					span.post-time #{moment(post.submitted).fromNow()}
+					span.comments
+						|, 
+						a(href='/posts/#{post._id}') #{post.comments} comments
