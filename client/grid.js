@@ -4,4 +4,7 @@
 // Comments = new Meteor.Collection('comments');
 // Meteor.subscribe('comments');
 
-// Session.set('state', 'list');
+MyVotes = new Meteor.Collection('myvotes');
+Meteor.subscribe('myvotes');
+
+Session.set('state', 'list');
