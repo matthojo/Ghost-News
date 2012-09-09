@@ -1,7 +1,10 @@
 <template name="post_page">
   <div class="single-post grid">
     {{#with post}}
-     {{> post_item}}
+    {{> post_item}}
+    {{#if body}}
+    <div class="post-message">{{{body_formatted}}}</div>
+    {{/if}}
     {{/with}}
     {{#if show_comment_form}}
     <div class="comment-new">

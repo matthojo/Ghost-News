@@ -21,9 +21,7 @@ Template.comment_item.child_comments = function(){
 };
 
 Template.comment_item.author = function(){
-  if(Meteor.users.findOne(this.user_id)){
-    return Meteor.users.findOne(this.user_id).username;
-  }
+  return Meteor.users.findOne(this.user_id).username
 };
 
 Template.comment_item.is_my_comment = function(){
@@ -34,7 +32,5 @@ Template.comment_item.is_my_comment = function(){
 };
 
 Template.comment_item.body_formatted = function(){
-  var converter = new Markdown.Converter();
-  var html_body=converter.makeHtml(this.body);
-  return html_body.autoLink();
+  return this.body.autoLink();
 }

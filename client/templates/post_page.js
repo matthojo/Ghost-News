@@ -31,7 +31,5 @@ Template.post_page.child_comments = function(){
 };
 
 Template.post_page.body_formatted = function(){
-  var converter = new Markdown.Converter();
-  var html_body=converter.makeHtml(this.body);
-  return html_body.autoLink();
+  return this.body.autoLink();
 }
