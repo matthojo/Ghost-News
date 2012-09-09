@@ -1,18 +1,18 @@
 Meteor.methods({
-  comment: function(post_id, parentComment_id, text){
+  comment: function(post, parentComment, text){
     var user = Meteor.users.findOne(this.userId());
 
     var comment = {
-        post: post_id
+        post: post._id
       , body: text
       , user_id: user._id
       , submitted: new Date().getTime()
     };
-    if(parentComment_id)
-      comment.parent = parentComment_id;
+    if(parentComment)
+      comment.parent = parentComment._id;
 
     Comments.insert(comment);
-    Posts.update(post_id, {$inc: {comments: 1}});
+    Posts.update(post._id, {$inc: {comments: 1}});
     return true;
   }
 });
