@@ -34,9 +34,7 @@ Template.comment_item.is_my_comment = function(){
 };
 
 Template.comment_item.body_formatted = function(){
-  if(this.body){
-    var converter = new Markdown.Converter();
-    var html_body=converter.makeHtml(this.body);
-    return html_body.autoLink();
-  }
+  var converter = new Markdown.Converter();
+  var html_body=converter.makeHtml(this.body);
+  return html_body.autoLink();
 }
