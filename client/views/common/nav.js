@@ -5,10 +5,12 @@ Template.nav.events = {
   }
   , 'click #mobile-menu': function(event){
     event.preventDefault();
-    $.pageslide({
-      href: '#pageslide',
-      iframe: false
-    });
+    console.log(st);
+    st.toggle_nav();
+    // $.pageslide({
+    //   href: '#pageslide',
+    //   iframe: false
+    // });
   }
   
   , 'click .login-header': function(e){

@@ -1,3 +1,5 @@
+var st = new sidetap();
+
 // ** Client-side helpers **
 
 sessionSetObject=function(name, value){

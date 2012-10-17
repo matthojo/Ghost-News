@@ -1,9 +1,20 @@
 <template name="body">
-  	{{> nav}}
-	{{> error}}
-	<div id="loading" class="grid"></div>
-	{{{render currentPage}}}
-	{{> notifications}}
-	{{> footer}}
-	<div class="overlay hidden"></div>
+  {{> mobile_nav}}
+  <div class="stp-content" id="content">
+    <header class="stp-fake-header">&nbsp;</header>
+    <div class="stp-overlay nav-toggle">&nbsp;</div>
+
+    <!-- Content Divs Look Like This -->
+    <div class="stp-content-panel">
+      {{> nav}}
+
+      {{> error}}
+      <div id="loading" class="grid"></div>
+      {{{render currentPage}}}
+      {{> notifications}}
+      {{> footer}}
+      <div class="overlay hidden"></div>
+    </div>
+
+  </div>
 </template>

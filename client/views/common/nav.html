@@ -1,18 +1,7 @@
 <template name="nav">
-  <div id="pageslide" class="hidden">
-    <ul>
-      <li><a class="top" href="/top">Top</a></li>
-      <li><a class="new" href="/new">New</a></li>
-      {{#if currentUser.isAdmin}}
-        <li><a class="users" href="/users">Users</a></li>
-        <li><a class="settings" href="/settings">Settings</a></li>
-        <li><a class="admin" href="/admin">Admin</a></li>
-      {{/if}}
-    </ul>
-  </div>
   <header class="header grid">
 
-    <a id="mobile-menu" href="#menu" class="mobile mobile-button menu"><i class="icon-menu"></i><span>Menu</span></a>
+    <a id="mobile-menu" href="#menu" class=" mobile-button menu"><i class="icon-menu"></i><span>Menu</span></a>
     
     <ul class="nav site-nav desktop">
       {{#if canView}}
