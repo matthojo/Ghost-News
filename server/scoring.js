@@ -19,10 +19,10 @@ var updateScore = function (collection, id) {
   collection.update(id, {$set: {score: newScore}});
 };
 
-Meteor.startup(function () {
-  // recalculate scores every 10 seconds
-  Meteor.setInterval(function () {
-    Posts.find().forEach(function (post) { updateScore(Posts, post._id); });
-    Comments.find().forEach(function (comment) { updateScore(Comments, comment._id); });
-  }, 30 * 1000);
-});
+// Meteor.startup(function () {
+//   // recalculate scores every 10 seconds
+//   Meteor.setInterval(function () {
+//     Posts.find().forEach(function (post) { updateScore(Posts, post._id); });
+//     Comments.find().forEach(function (comment) { updateScore(Comments, comment._id); });
+//   }, 30 * 1000);
+// });
