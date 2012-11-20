@@ -125,7 +125,7 @@ Template.comment_item.rendered=function(){
     var openedComments=sessionGetObject('openedComments') || [];
 
     if(Meteor.user() && Meteor.user()._id==comment.userId){
-      // if user is logged in, and the comment belongs to the user, then never queue it
+      // if user is logged in, and the comment belongs to the user, then never queue it (do nothing)
     }else{
       if(commentIsNew(comment) && !$comment.hasClass("comment-queued") && openedComments.indexOf(comment._id)==-1){
         // if comment is new and has not already been previously queued

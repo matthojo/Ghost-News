@@ -4,10 +4,14 @@
 // Session variables. Is used by app.js so needs to come first. 
 
 sessionSetObject=function(name, value){
+  
   Session.set(name, JSON.stringify(value));
+  console.log("setting session object:", name, value, Session.get(name));
 }
 sessionGetObject=function(name){
   var data = Session.get(name);
+    console.log("getting session object:", name, Session.get(name));
+
   return data && JSON.parse(data);
 }
 getSetting = function(setting){

@@ -10,10 +10,10 @@ SimpleRouter = FilteredRouter.extend({
 
   start_request: function(page){
     // runs at every new page change
-
+    console.log('-------------- request start --------------');
     // openedComments is an Array that tracks which comments
     // have been expanded by the user, to make sure they stay expanded
-    Session.set("openedComments", null);
+    sessionSetObject("openedComments", null);
 
     // currentScroll stores the position of the user in the page
     Session.set('currentScroll', null);
@@ -156,6 +156,7 @@ SimpleRouter = FilteredRouter.extend({
     // reset the new comment time at each new request of the post page
     window.newCommentTimestamp=new Date();
     self.goto(function() {
+      // console.log("/// firing router's goto post_page");
       return self.awaitSubscription('post_page', 'postReady');
     });
   },
