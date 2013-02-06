@@ -207,13 +207,14 @@
   Meteor.Router.filter('requirePost', {only: ['post_page', 'post_edit']});
   Meteor.Router.filter('isAdmin', {only: ['posts_pending', 'users', 'settings', 'categories', 'admin']});
   
+  
   Meteor.startup(function() {
     Meteor.autorun(function() {
       // grab the current page from the router, so this re-runs every time it changes
       Meteor.Router.page();
 
       if(Meteor.Router.page() !== "loading"){
-        console.log('------ Request start -------- ('+Meteor.Router.page()+')');
+        // console.log('------ Request start -------- ('+Meteor.Router.page()+')');
       
 
         if(_.contains(['posts_top', 'posts_new', 'posts_digest', 'posts_pending', 'posts_best'], Meteor.Router.page())){
@@ -243,11 +244,11 @@
         // if there are any pending events, log them too
         if(eventBuffer=Session.get('eventBuffer')){
           _.each(eventBuffer, function(e){
-            console.log('in buffer: ', e);
+            // console.log('in buffer: ', e);
             trackEvent(e.event, e.properties);
           });
         }else{
-          console.log('------ Loading… --------');
+          // console.log('------ Loading… --------');
         }
       }
     });    
