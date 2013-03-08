@@ -65,8 +65,16 @@ Posts = new Meteor.Collection('posts');
 STATUS_PENDING=1;
 STATUS_APPROVED=2;
 STATUS_REJECTED=3;
+<<<<<<< Updated upstream
 
 var queryFind = function(status, slug){
+=======
+<<<<<<< Updated upstream
+FIND_APPROVED={$or: [{status: {$exists : false}}, {status: STATUS_APPROVED}]};
+=======
+
+var queryFind = function(status, categorySlug){
+>>>>>>> Stashed changes
   var find = {};
 
   // build find query starting with the status
@@ -90,12 +98,21 @@ var queryFind = function(status, slug){
   // if a category slug is defined, modify selector
 
   // DOESN'T WORK FOR SOME REASON
+<<<<<<< Updated upstream
   if(slug){
     console.log('cat slug: ', slug);
     find={
       $and : [
         find,
         {'categories.slug': slug}
+=======
+  if(categorySlug){
+    console.log('cat slug: ', categorySlug);
+    find={
+      $and : [
+        find,
+        {'categories.slug': categorySlug}
+>>>>>>> Stashed changes
       ]
     }; 
   }
@@ -108,6 +125,10 @@ var sortBy = function(sortProperty){
   sortBy.sort[sortProperty] = -1;
   return sortBy;
 }
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 var postListSubscription = function(find, options, per_page) {
   var handle = paginatedSubscription(per_page, 'paginatedPosts', find, options);
