@@ -1,4 +1,4 @@
-(function() {  
+(function() {
   Meteor.Router.beforeRouting = function() {
     console.log('// Before Routing //')
     // reset all session variables that might be set by the previous route
@@ -6,19 +6,19 @@
 
     // currentScroll stores the position of the user in the page
     Session.set('currentScroll', null);
-    
+
     var tagline = getSetting("tagline") ? ": "+getSetting("tagline") : '';
     document.title = getSetting("title")+tagline;
-    
+
     $('body').css('min-height','0');
 
     // set all errors who have already been seen to not show anymore
     clearSeenErrors();
-        
+
     // log this request with mixpanel, etc
     analyticsRequest();
   }
-  
+
   // specific router functions
   digest = function(year, month, day, view){
     var destination = (typeof view === 'undefined') ? 'posts_digest' : 'posts_digest_'+view
@@ -32,8 +32,8 @@
     } else {
       Session.set('currentDate', new Date(year, month-1, day));
     }
-    
-    // we need to make sure that the session changes above have been executed 
+
+    // we need to make sure that the session changes above have been executed
     // before we can look at the digest handle. XXX: this might be a bad idea
     // Meteor.flush();
     // if (!digestHandle() || digestHandle().loading()) {
@@ -46,8 +46,8 @@
   post = function(id, commentId) {
     Session.set('selectedPostId', id);
     if(typeof commentId !== 'undefined')
-      Session.set('scrollToCommentId', commentId); 
-  
+      Session.set('scrollToCommentId', commentId);
+
     // on post page, we show the comment tree
     Session.set('showChildComments',true);
 
@@ -55,7 +55,7 @@
   };
 
   post_edit = function(id) {
-    Session.set('selectedPostId', id); 
+    Session.set('selectedPostId', id);
     return 'post_edit';
   };
 
@@ -70,7 +70,7 @@
   };
 
   comment_edit = function(id) {
-    Session.set('selectedCommentId', id);  
+    Session.set('selectedCommentId', id);
     return 'comment_edit';
   };
 
@@ -123,7 +123,7 @@
     '/posts/:id/edit': post_edit,
     '/posts/:id/comment/:comment_id': post,
     '/posts/:id': post,
-    '/comments/deleted':'comment_deleted',   
+    '/comments/deleted':'comment_deleted',
     '/comments/:id': comment,
     '/comments/:id/reply': comment_reply,
     '/comments/:id/edit': comment_edit,
@@ -160,54 +160,54 @@
         return 'user_signin';
       }
     },
-    
+
     canView: function(page) {
       var error = canView(Meteor.user(), true);
       if (error === true)
         return page;
-      
+
       // a problem.. make sure we are logged in
       if (Meteor.loggingIn())
         return 'loading';
-      
+
       // otherwise the error tells us what to show.
       return error;
     },
-  
+
     canPost: function(page) {
       var error = canPost(Meteor.user(), true);
       if (error === true)
         return page;
-      
+
       // a problem.. make sure we are logged in
       if (Meteor.loggingIn())
         return 'loading';
-      
+
       // otherwise the error tells us what to show.
       return error;
     },
-    
+
     canEdit: function(page) {
-      // make findOne() non reactive to avoid re-triggering the router every time the 
+      // make findOne() non reactive to avoid re-triggering the router every time the
       // current comment or post object changes
       if (page === 'comment_edit') {
         var item = Comments.findOne(Session.get('selectedCommentId'), {reactive: false});
       } else {
         var item = Posts.findOne(Session.get('selectedPostId'), {reactive: false});
       }
-      
+
       var error = canEdit(Meteor.user(), item, true);
       if (error === true)
         return page;
-      
+
       // a problem.. make sure the item has loaded and we have logged in
       if (! item || Meteor.loggingIn())
         return 'loading';
-      
+
       // otherwise the error tells us what to show.
       return error;
     },
-  
+
     isLoggedOut: function(page){
       return Meteor.user() ? "already_logged_in" : page;
     },
@@ -227,10 +227,10 @@
         return page;
       }
     },
-  
+
     // if we are on a page that requires a post, as set in selectedPostId
     requirePost: function(page) {
-      // make findOne() non reactive to avoid re-triggering the router every time the 
+      // make findOne() non reactive to avoid re-triggering the router every time the
       // current comment or post object changes
       if (Posts.findOne(Session.get('selectedPostId'), {reactive: false})) {
         return page;
@@ -247,6 +247,7 @@
   Meteor.Router.filter('canView', {only: ['posts_top', 'posts_new', 'posts_digest', 'posts_best']});
   Meteor.Router.filter('isLoggedOut', {only: ['user_signin', 'user_signup']});
   Meteor.Router.filter('canPost', {only: ['posts_pending', 'comment_reply', 'post_submit']});
+
   Meteor.Router.filter('canEdit', {only: ['post_edit', 'comment_edit']});
   Meteor.Router.filter('requirePost', {only: ['post_page', 'post_edit']});
   Meteor.Router.filter('isAdmin', {only: ['posts_pending', 'users', 'settings', 'categories', 'admin']});
@@ -258,7 +259,7 @@
       Meteor.Router.page();
       if(Meteor.Router.page() !== "loading"){
         console.log('------ '+Meteor.Router.page()+' ------');
-      
+
         // note: posts_digest doesn't use paginated subscriptions so it cannot have a rank
         if(_.contains(['posts_top', 'posts_new', 'posts_pending', 'posts_best'], Meteor.Router.page())){
           Session.set('isPostsList', true);
@@ -267,6 +268,6 @@
         }
 
       }
-    });    
+    });
   });
 }());

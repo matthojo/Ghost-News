@@ -36,7 +36,7 @@ Template.post_item.helpers({
     return html_body.autoLink();
   },
   ago: function(){
-    // if post is approved show submission time, else show creation time. 
+    // if post is approved show submission time, else show creation time.
     time = this.status == STATUS_APPROVED ? this.submitted : this.createdAt;
     return moment(time).fromNow();
   },
@@ -46,7 +46,7 @@ Template.post_item.helpers({
   },
   voted: function(){
     var user = Meteor.user();
-    if(!user) return false; 
+    if(!user) return false;
     return _.include(this.upvoters, user._id);
   },
   userAvatar: function(){
@@ -89,7 +89,7 @@ Template.post_item.rendered = function(){
     instance.currentPosition = newPosition;
     // bring element back to its new original position
     $this.addClass('animate').css("top",  "0px");
-  }); 
+  });
 };
 
 Template.post_item.events = {

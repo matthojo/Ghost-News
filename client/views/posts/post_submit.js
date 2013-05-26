@@ -11,6 +11,21 @@ Template.post_submit.helpers({
   isSelected: function(){
     var post=Posts.findOne(Session.get('selectedPostId'));
     return post && this._id == post.userId;
+  },
+  isNotVerified: function() {
+    console.log('this happend');
+    console.log(Meteor.user());
+    var user = Meteor.user(),
+        emails = user.emails,
+        verified = false;
+
+    for (var i = emails.length - 1; i >= 0; i--) {
+      if(emails[i].verified){
+        verified = true;
+        break;
+      }
+    };
+    return !verified;
   }
 });
 
@@ -29,7 +44,7 @@ Template.post_submit.events = {
 
     $(e.target).addClass('disabled');
 
-    if(!Meteor.user()){
+    if(!Meteor.user() ){
       throwError('You must be logged in.');
       return false;
     }

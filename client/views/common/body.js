@@ -16,7 +16,7 @@ Template.body.helpers({
   },
   extraCode: function(){
     return getSetting('extraCode');
-  }     
+  }
 });
 
 Template.body.created = function(){
@@ -27,5 +27,5 @@ Template.body.rendered = function(){
     if(currentScroll=Session.get('currentScroll')){
       $('body').scrollTop(currentScroll);
       Session.set('currentScroll', null);
-    }   
+    }
 }

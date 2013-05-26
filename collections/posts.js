@@ -18,7 +18,22 @@ Meteor.methods({
         numberOfPostsInPast24Hours=numberOfItemsInPast24Hours(user, Posts),
         postInterval = Math.abs(parseInt(getSetting('postInterval', 30))),
         maxPostsPer24Hours = Math.abs(parseInt(getSetting('maxPostsPerDay', 30))),
-        postId = '';
+        postId = '',
+        emails = user.emails,
+        verified = false;
+
+    for (var i = emails.length - 1; i >= 0; i--) {
+      if(emails[i].verified){
+        verified = true;
+        break;
+      }
+    };
+
+    // console.log(user);
+    // check that user is verified
+    if (!verified){
+      throw new Meteor.Error(609, 'You need to verify your email address before you can post');
+    }
 
     // check that user can post
     if (!user || !canPost(user))
@@ -57,7 +72,7 @@ Meteor.methods({
       inactive: false,
       status: status
     });
-    
+
     if(status == STATUS_APPROVED){
       // if post is approved, set its submitted date (if post is pending, submitted date is left blank)
       post.submitted  = submitted;
@@ -83,7 +98,7 @@ Meteor.methods({
       var notification = getNotification('newPost', properties);
       // call a server method because we do not have access to admin users' info on the client
       Meteor.call('notifyAdmins', notification, Meteor.user(), function(error, result){
-        //run asynchronously        
+        //run asynchronously
       });
     }
 

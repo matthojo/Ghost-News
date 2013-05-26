@@ -14,12 +14,27 @@ Meteor.methods({
           'commentExcerpt': trimWords(stripMarkdown(cleanText),20),
           'postId': postId,
           'postHeadline' : post.headline
-        };
+        },
+        emails = user.emails,
+        verified = false;
+
+    for (var i = emails.length - 1; i >= 0; i--) {
+      if(emails[i].verified){
+        verified = true;
+        break;
+      }
+    };
+
+    // console.log(user);
+    // check that user is verified
+    if (!verified){
+      throw new Meteor.Error(719, 'You need to verify your email address before you can comment');
+    };
 
     // check that user can comment
     if (!user || !canComment(user))
       throw new Meteor.Error('You need to login or be invited to post new comments.');
-    
+
     // check that user waits more than 15 seconds between comments
     if(!this.isSimulation && (timeSinceLastComment < commentInterval))
       throw new Meteor.Error(704, 'Please wait '+(commentInterval-timeSinceLastComment)+' seconds before commenting again');
@@ -31,7 +46,7 @@ Meteor.methods({
         submitted: new Date().getTime(),
         author: getDisplayName(user)
     };
-    
+
     if(parentCommentId)
       comment.parent = parentCommentId;
 

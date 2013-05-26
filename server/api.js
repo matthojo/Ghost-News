@@ -1,4 +1,5 @@
 // serve up api at the right url
+
 Meteor.serve('api', function(request) {
   var posts = [];
   var limit = parseInt(request.query['limit']);
@@ -27,3 +28,5 @@ Meteor.serve('api', function(request) {
 
   return JSON.stringify(posts);
 });
+
+Accounts.config({sendVerificationEmail:true});
