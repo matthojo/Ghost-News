@@ -1,3 +1,6 @@
+
+
+
 Template.comment_form.rendered = function(){
   if(Meteor.user() && !this.editor){
     this.editor = new EpicEditor(EpicEditorOptions).load();
@@ -33,7 +36,7 @@ Template.comment_form.events = {
       });
     }else{
       // root comment
-      var parentCommentId=null;        
+      var parentCommentId=null;
       var postId=Session.get('selectedPostId');
 
       Meteor.call('comment', postId, parentCommentId, content, function(error, commentProperties){

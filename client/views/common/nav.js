@@ -6,7 +6,7 @@ Template.nav.events = {
   'click #mobile-menu': function(event){
     event.preventDefault();
     $('body').toggleClass('mobile-nav-open');
-  },  
+  },
   'click .login-header': function(e){
       e.preventDefault();
       Meteor.Router.to('/account');
@@ -36,7 +36,7 @@ Template.nav.helpers({
   },
   logo_top: function(){
     return Math.floor((70-getSetting('logoHeight'))/2);
-  },  
+  },
   logo_offset: function(){
     return -Math.floor(getSetting('logoWidth')/2);
   },

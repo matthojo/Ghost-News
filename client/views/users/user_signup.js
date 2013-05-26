@@ -10,14 +10,14 @@ Template.user_signup.events = {
       }
       Accounts.createUser({
           username: username
-        , email: email  
+        , email: email
         , password: password
       }, function(err){
         if(err){
           console.log(err);
-        }else{
+      }else{
           Meteor.Router.to('/');
-        }  
+        }
       });
   },
 

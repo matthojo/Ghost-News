@@ -30,7 +30,7 @@ Template.post_edit.helpers({
     // console.log('isSelected?')
     var post= Posts.findOne(Session.get('selectedPostId'));
     return post && this._id == post.userId ? 'selected' : '';
-  },  
+  },
   submittedDate: function(){
     return moment(this.submitted).format("MM/DD/YYYY");
   },
@@ -51,14 +51,27 @@ Template.post_edit.helpers({
   },
   hasStatusRejected: function(){
     return this.status == STATUS_REJECTED ? 'checked' : '';
-  },  
+  },
+  isNotVerified: function() {
+    var user = Meteor.user(),
+        emails = user.emails,
+        verified = false;
+
+    for (var i = emails.length - 1; i >= 0; i--) {
+      if(emails[i].verified){
+        verified = true;
+        break;
+      }
+    };
+    return !verified;
+  }
 });
 
 Template.post_edit.rendered = function(){
   var post= Posts.findOne(Session.get('selectedPostId'));
   if(post && !this.editor){
 
-    this.editor= new EpicEditor(EpicEditorOptions).load();  
+    this.editor= new EpicEditor(EpicEditorOptions).load();
     this.editor.importFile('editor',post.body);
 
     $('#submitted_date').datepicker();
@@ -85,13 +98,13 @@ Template.post_edit.events = {
       if(category = Categories.findOne(categoryId))
         categories.push(category);
     });
-    
+
     var properties = {
       headline:         $('#title').val(),
       body:             instance.editor.exportFile(),
       categories:       categories,
     };
-    
+
     if(url){
       properties.url = (url.substring(0, 7) == "http://" || url.substring(0, 8) == "https://") ? url : "http://"+url;
     }

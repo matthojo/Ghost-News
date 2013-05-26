@@ -13,8 +13,21 @@ Template.post_page.helpers({
 	},
 	canView: function(){
 		return canView(Meteor.user());
+	},
+	isNotVerified: function() {
+		var user = Meteor.user(),
+		    emails = user.emails,
+		    verified = false;
+
+		for (var i = emails.length - 1; i >= 0; i--) {
+		  if(emails[i].verified){
+		    verified = true;
+		    break;
+		  }
+		};
+		return !verified;
 	}
-}); 
+});
 
 Template.post_page.rendered = function(){
 	if((scrollToCommentId=Session.get('scrollToCommentId')) && !this.rendered && $('#'+scrollToCommentId).exists()){

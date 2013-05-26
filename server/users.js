@@ -4,23 +4,32 @@ Accounts.onCreateUser(function(options, user){
   user.profile.notificationsFrequency = 1;
   // users start pending and need to be invited
   user.isInvited = false
-  
+
   if (options.email)
     user.profile.email = options.email;
-    
+
   if (user.profile.email)
     user.email_hash = CryptoJS.MD5(user.profile.email.trim().toLowerCase()).toString();
-  
+
   if (!user.profile.name)
     user.profile.name = user.username;
-  
+
   // if this is the first user ever, make them an admin
-  if ( !Meteor.users.find().count() )
+  if ( !Meteor.users.find().count() ) {
     user.isAdmin = true;
 
+  }
+
+  if (!user.em) {};
+
+  console.log(user._id);
+  // Accounts.sendVerificationEmail(user._id);
+
+  // console.log(user);
   trackEvent('new user', {username: user.username, email: user.profile.email});
 
   return user;
+  // return false;
 });
 
 // FIXME -- don't use this yet, until a) we are sure it's the right approach

@@ -1,4 +1,11 @@
 <template name="post_edit">
+  {{#if isNotVerified}}
+    <div class="grid">
+      <div class="error error-message">
+        Your email address is not verified. You will not be able to edit this post. Check your emails, and click the link we sent you.
+      </div>
+    </div>
+  {{/if}}
   <div class="grid submit">
     {{#constant}}{{#with post}}
       <form class="grid-block form-horizontal">
@@ -56,7 +63,7 @@
             <label class="control-label post-form-timestamp">Submission</label>
             <div class="controls">
               <p>Note: this post is still pending so it has no submission timestamp yet.</p>
-            </div>  
+            </div>
           </div>
           {{/if}}
           <div class="control-group post-form-user">
@@ -78,7 +85,7 @@
               <label class="radio inline">
                 <input id="status_approved" type="radio" value="2" name="status" {{hasStatusApproved}} /> Approved
               </label>
-              <label class="radio inline">  
+              <label class="radio inline">
                 <input id="status_rejected" type="radio" value="3" name="status" {{hasStatusRejected}} /> Rejected
               </label>
             </div>
